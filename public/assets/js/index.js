@@ -64,18 +64,17 @@ const renderActiveNote = () => {
     noteTitle.value = '';
     noteText.value = '';
   }
-  console.log(activeNote.title);
 };
 
 const handleNoteSave = () => {
-    const newNote = {
-        title: noteTitle.value,
-        text: noteText.value,
-    };
-    saveNote(newNote).then(() => {
-        getAndRenderNotes();
-        renderActiveNote();
-    });
+  const newNote = {
+    title: noteTitle.value,
+    text: noteText.value,
+  };
+  saveNote(newNote).then(() => {
+    getAndRenderNotes();
+    renderActiveNote();
+  });
 };
 
 // Delete the clicked note
@@ -84,7 +83,6 @@ const handleNoteDelete = (e) => {
   e.stopPropagation();
 
   const note = e.target;
-  console.log(e.target);
   const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).id;
 
   if (activeNote.id === noteId) {
@@ -100,7 +98,6 @@ const handleNoteDelete = (e) => {
 // Sets the activeNote and displays it
 const handleNoteView = (e) => {
   e.preventDefault();
-  console.log(`e.target: ${e.target}`);
   activeNote = JSON.parse(e.target.parentElement.getAttribute('data-note'));
   renderActiveNote();
 };
@@ -121,16 +118,14 @@ const handleRenderSaveBtn = () => {
 
 // Render the list of note titles
 const renderNoteList = async (notes) => {
-  // const text = await notes.text();
-  // console.log(text);
   let jsonNotes = await notes.json();
-  
+  console.log(jsonNotes);
   if (window.location.pathname === '/notes') {
     noteList.forEach((el) => (el.innerHTML = ''));
   }
 
   let noteListItems = [];
-  console.log(`noteListItems1: ${noteListItems}`);
+
   // Returns HTML element with or without a delete button
   const createLi = (text, delBtn = true) => {
     const liEl = document.createElement('li');
@@ -170,11 +165,10 @@ const renderNoteList = async (notes) => {
 
     noteListItems.push(li);
   });
-  
+
   if (window.location.pathname === '/notes') {
     noteListItems.forEach((note) => noteList[0].append(note));
   }
-  console.log(`noteListItems2: ${noteListItems}`);
 };
 
 // Gets notes from the db and renders them to the sidebar
