@@ -10,8 +10,9 @@ const PORT = process.env.PORT || 8080;
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
-require('./routes/htmlRoutes')(app);
 require('./routes/apiRoutes')(app);
+require('./routes/htmlRoutes')(app);
+
 
 app.listen(PORT, () => {
     console.log(`App is listening on PORT: ${PORT}`);
